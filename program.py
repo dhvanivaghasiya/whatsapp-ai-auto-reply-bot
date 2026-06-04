@@ -3,29 +3,17 @@ import pyperclip
 import time
 from openai import OpenAI
 
-# =========================
-# GROQ API
-# =========================
-
 client = OpenAI(
-    api_key="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",
+    api_key="your api key",
     base_url="https://api.groq.com/openai/v1"
 )
 
 print("Starting in 5 seconds...")
 time.sleep(5)
 
-# =========================
-# OPEN WHATSAPP
-# =========================
-
 pyautogui.click(924, 1046)
 
 time.sleep(2)
-
-# =========================
-# SELECT CHAT
-# =========================
 
 pyautogui.moveTo(877, 227)
 
@@ -37,45 +25,28 @@ pyautogui.mouseUp()
 
 time.sleep(1)
 
-# =========================
-# COPY CHAT
-# =========================
-
 pyautogui.hotkey("ctrl", "c")
 
 time.sleep(2)
-
-# =========================
-# GET COPIED TEXT
-# =========================
 
 copied_text = pyperclip.paste()
 
 print("===== CHAT =====")
 print(copied_text)
 
-# =========================
-# GET LAST MESSAGE ONLY
-# =========================
 
 last_line = copied_text.strip().split("\n")[-1]
 
-# Remove date/time
 if "]" in last_line:
     last_line = last_line.split("]")[-1]
 
-# Remove name
 if ":" in last_line:
     last_line = last_line.split(":")[-1]
 
 last_line = last_line.strip()
 
-print("===== CLEAN MESSAGE =====")
+print("CLEAN MESSAGE")
 print(last_line)
-
-# =========================
-# AI REPLY
-# =========================
 
 response = client.chat.completions.create(
     model="llama-3.3-70b-versatile",
@@ -139,29 +110,21 @@ Reply naturally like real chats.
 
 reply = response.choices[0].message.content
 
-print("===== REPLY =====")
+print("REPLY")
 print(reply)
 
-# =========================
-# SEND MESSAGE
-# =========================
-
-# Click typing box
 pyautogui.click(1100, 830)
 
 time.sleep(1)
 
-# Copy reply
 pyperclip.copy(reply)
 
 time.sleep(1)
 
-# Paste reply
 pyautogui.hotkey("ctrl", "v")
 
 time.sleep(1)
 
-# Send
 pyautogui.press("enter")
 
 print("DONE")
